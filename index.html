@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ABM EduX — Learn. Practice. Succeed.</title>
+<meta name="description" content="ABM EduX brings courses, live classes, tests, assignments, payments and analytics into one Android learning platform.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B1436;
+    --navy-soft:#111C48;
+    --surface:#172358;
+    --surface-alt:#202D68;
+    --gold:#E4B94F;
+    --gold-dim:#8C6D1E;
+    --cream:#F6F1E2;
+    --ink:#0B1436;
+    --line:rgba(246,241,226,0.12);
+    --line-strong:rgba(246,241,226,0.22);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--navy);
+    color:var(--cream);
+    font-family:'Manrope', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+  h1,h2,h3{
+    font-family:'Newsreader', serif;
+    font-weight:600;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px;}
+
+  header{
+    position:sticky; top:0; z-index:20;
+    background:rgba(11,20,54,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 28px; max-width:1120px; margin:0 auto;
+  }
+  .brand{display:flex; align-items:center; gap:10px; font-family:'Newsreader', serif; font-weight:600; font-size:20px;}
+  .brand img{width:32px; height:32px; border-radius:8px;}
+  .navlinks{display:flex; gap:26px; font-size:14px;}
+  .navlinks a{text-decoration:none; color:var(--cream); opacity:0.72; transition:opacity .15s ease;}
+  .navlinks a:hover{opacity:1;}
+  @media (max-width:760px){ .navlinks{display:none;} }
+
+  .hero{padding:96px 0 72px; border-bottom:1px solid var(--line);}
+  .hero-grid{display:grid; grid-template-columns:1.15fr 0.85fr; gap:56px; align-items:center;}
+  @media (max-width:860px){ .hero-grid{grid-template-columns:1fr; gap:36px;} .hero{padding:56px 0 44px;} }
+  .pill{
+    display:inline-flex; align-items:center; gap:8px; font-size:13px; color:var(--gold);
+    border:1px solid var(--gold-dim); background:rgba(228,185,79,0.08);
+    padding:6px 14px; border-radius:100px; margin-bottom:24px;
+  }
+  .pill .dot{width:6px; height:6px; border-radius:50%; background:var(--gold);}
+  .hero h1{font-size:clamp(2.1rem, 4.4vw, 3.2rem); line-height:1.1; max-width:14ch;}
+  .hero p.lead{margin-top:22px; font-size:18px; color:rgba(246,241,226,0.78); max-width:48ch;}
+  .hero-actions{margin-top:34px; display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{display:inline-block; padding:13px 22px; border-radius:10px; font-size:15px; font-weight:600; text-decoration:none; border:1px solid transparent;}
+  .btn-primary{background:var(--gold); color:var(--ink);}
+  .btn-ghost{border-color:var(--line-strong); color:var(--cream);}
+  .hero-art{display:flex; justify-content:center;}
+  .hero-art .frame{
+    background:linear-gradient(155deg, var(--surface-alt), var(--surface));
+    border:1px solid var(--line-strong); border-radius:28px; padding:36px;
+    width:min(300px, 78vw); box-shadow:0 30px 60px -20px rgba(0,0,0,0.55);
+  }
+  .hero-art img{border-radius:20px;}
+
+  section{padding:84px 0;}
+  section + section{border-top:1px solid var(--line);}
+  .section-head{display:grid; grid-template-columns:0.9fr 1.1fr; gap:48px; margin-bottom:40px;}
+  @media (max-width:780px){ .section-head{grid-template-columns:1fr; gap:16px;} }
+  .section-head h2{font-size:clamp(1.5rem, 2.8vw, 2.1rem);}
+  .section-head .desc{color:rgba(246,241,226,0.75); font-size:16px; max-width:52ch;}
+
+  .media{border-radius:18px; overflow:hidden; border:1px solid var(--line); background:var(--surface);}
+  .media img{width:100%;}
+
+  /* problem */
+  .problem-card{
+    background:var(--navy-soft); border:1px solid var(--line); border-radius:18px; padding:32px;
+    font-size:16px; color:rgba(246,241,226,0.82);
+  }
+
+  /* pillars grid */
+  .pillars{display:grid; grid-template-columns:repeat(4, 1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:18px; overflow:hidden;}
+  @media (max-width:860px){ .pillars{grid-template-columns:repeat(2, 1fr);} }
+  .pillar{background:var(--navy-soft); padding:26px 22px;}
+  .pillar h3{font-size:17px; margin-bottom:8px; font-family:'Manrope', sans-serif; font-weight:700;}
+  .pillar p{margin:0; font-size:14px; color:rgba(246,241,226,0.65);}
+
+  /* tabs */
+  .tabs{display:flex; gap:10px; margin-bottom:26px;}
+  .tab-btn{
+    font-family:inherit; font-size:14px; padding:10px 18px; border-radius:100px;
+    border:1px solid var(--line-strong); background:transparent; color:var(--cream); cursor:pointer; opacity:0.62;
+  }
+  .tab-btn.active{background:var(--gold); color:var(--ink); border-color:var(--gold); opacity:1;}
+  .feature-grid{display:none; grid-template-columns:repeat(2, 1fr); gap:12px 32px;}
+  .feature-grid.active{display:grid;}
+  @media (max-width:640px){ .feature-grid{grid-template-columns:1fr;} }
+  .feature-grid div{padding:13px 0; border-bottom:1px solid var(--line); font-size:15px; color:rgba(246,241,226,0.88);}
+
+  /* recording callout */
+  .callout{
+    display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:center;
+    background:linear-gradient(135deg, var(--surface-alt), var(--navy-soft));
+    border:1px solid var(--line-strong); border-radius:20px; padding:36px;
+  }
+  @media (max-width:780px){ .callout{grid-template-columns:1fr;} }
+  .callout h3{font-size:22px; margin-bottom:14px;}
+  .callout p{color:rgba(246,241,226,0.8); font-size:15px; margin:0 0 10px;}
+  .callout .tag{display:inline-block; font-size:12px; color:var(--gold); border:1px solid var(--gold-dim); border-radius:100px; padding:4px 12px; margin-bottom:16px;}
+  .rec-path{
+    font-family:monospace; font-size:13px; background:rgba(0,0,0,0.25); border:1px solid var(--line);
+    border-radius:10px; padding:16px; color:rgba(246,241,226,0.75); line-height:1.7; white-space:pre;
+  }
+
+  /* payment flow */
+  .flow{display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-size:14px;}
+  .flow .step{background:var(--navy-soft); border:1px solid var(--line); border-radius:10px; padding:10px 14px;}
+  .flow .arrow{color:var(--gold); opacity:0.7;}
+
+  /* stack */
+  .stack-row{display:flex; flex-wrap:wrap; gap:14px;}
+  .stack-chip{border:1px solid var(--line-strong); border-radius:10px; padding:12px 18px; font-size:14px; background:var(--navy-soft);}
+
+  /* filmstrip */
+  .filmstrip{display:flex; gap:16px; overflow-x:auto; padding-bottom:14px; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;}
+  .filmstrip::-webkit-scrollbar{height:8px;}
+  .filmstrip::-webkit-scrollbar-thumb{background:var(--surface-alt); border-radius:10px;}
+  .shot{flex:0 0 auto; width:170px; scroll-snap-align:start;}
+  .shot .media{margin-bottom:8px;}
+  .shot .label{font-size:12px; color:rgba(246,241,226,0.5);}
+
+  /* download */
+  .download-box{
+    display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;
+    background:var(--navy-soft); border:1px solid var(--line-strong); border-radius:20px; padding:36px;
+  }
+  .download-box p{margin:6px 0 0; color:rgba(246,241,226,0.7); font-size:15px; max-width:44ch;}
+  .play-btn{
+    display:inline-flex; align-items:center; gap:10px; background:var(--gold); color:var(--ink);
+    padding:14px 26px; border-radius:12px; text-decoration:none; font-weight:700; font-size:15px;
+  }
+
+  footer{padding:44px 0 56px; border-top:1px solid var(--line);}
+  .footer-grid{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:22px;}
+  footer .dev{font-family:'Newsreader', serif; font-size:18px;}
+  footer .role{color:rgba(246,241,226,0.6); font-size:14px; margin-top:4px;}
+  footer .note{color:rgba(246,241,226,0.5); font-size:13px; max-width:36ch;}
+
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="brand"><img src="Abm%20Pics/app%20icon.jpeg" alt="ABM EduX icon">ABM EduX</div>
+    <div class="navlinks">
+      <a href="#problem">Problem</a>
+      <a href="#pillars">What it brings together</a>
+      <a href="#features">Features</a>
+      <a href="#live">Live classes</a>
+      <a href="#screens">Screens</a>
+      <a href="#download">Download</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="pill"><span class="dot"></span>Android · Live now on Play Store</span>
+      <h1>One app for the whole learning journey.</h1>
+      <p class="lead">ABM EduX brings courses, live classes, tests, assignments, payments, community and analytics into a single Android platform — for students and the admins running the courses.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#download">Get the app</a>
+        <a class="btn btn-ghost" href="#pillars">Explore features</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="frame"><img src="Abm%20Pics/app%20icon.jpeg" alt="ABM EduX app icon"></div>
+    </div>
+  </div>
+</section>
+
+<section id="problem">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Too many apps for one course</h2>
+      <p class="desc">WhatsApp for updates, one app for video, another for PDFs, tests tracked by hand, a separate app for live class, payments handled somewhere else entirely.</p>
+    </div>
+    <div class="problem-card">
+      Students end up with no single place for their learning journey, and teachers juggle a different tool for every part of running a course. ABM EduX replaces that patchwork with one integrated platform — courses, video, live classes, materials, tests, assignments, payments and community, all in the same app.
+    </div>
+  </div>
+</section>
+
+<section id="pillars">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>What it brings together</h2>
+      <p class="desc">Seven systems that usually live in seven different apps, working from the same student profile and the same course data.</p>
+    </div>
+    <div class="pillars">
+      <div class="pillar"><h3>Courses &amp; video</h3><p>Structured content with Media3/ExoPlayer playback.</p></div>
+      <div class="pillar"><h3>Live classes</h3><p>Agora RTC with camera, mic and screen share.</p></div>
+      <div class="pillar"><h3>Tests &amp; assignments</h3><p>Attempt, submit and track results in one place.</p></div>
+      <div class="pillar"><h3>Payments</h3><p>Razorpay checkout with server-verified pricing.</p></div>
+      <div class="pillar"><h3>Study materials</h3><p>Built-in PDF viewer for notes and resources.</p></div>
+      <div class="pillar"><h3>Community</h3><p>Course discussions without leaving the app.</p></div>
+      <div class="pillar"><h3>Leaderboard</h3><p>Rankings from real test performance.</p></div>
+      <div class="pillar"><h3>Analytics</h3><p>Live Firebase data for students and admins alike.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Built for both sides of the classroom</h2>
+      <p class="desc">Students learn, admins run the platform — each with the tools their day actually needs.</p>
+    </div>
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="student">Student</button>
+      <button class="tab-btn" data-tab="admin">Admin</button>
+    </div>
+    <div class="feature-grid active" id="student">
+      <div>Phone/OTP login via Firebase Auth</div>
+      <div>Dashboard for courses, tests, live classes &amp; more</div>
+      <div>Free and paid courses with Razorpay checkout</div>
+      <div>Coupons &amp; first-purchase offers</div>
+      <div>Video lectures via Media3/ExoPlayer</div>
+      <div>In-app PDF viewer for study material</div>
+      <div>Tests, quizzes and result tracking</div>
+      <div>Assignment submission with notes</div>
+      <div>Leaderboard &amp; performance tracking</div>
+      <div>Course discussions and community Q&amp;A</div>
+      <div>Live class &amp; announcement notifications</div>
+      <div>Profile &amp; settings</div>
+    </div>
+    <div class="feature-grid" id="admin">
+      <div>Student, course and video management</div>
+      <div>Test and assignment management</div>
+      <div>Live class scheduling &amp; management</div>
+      <div>Discussion &amp; announcement management</div>
+      <div>Coupon and payment management</div>
+      <div>Subscription management with auto-expiry</div>
+      <div>Notification categories &amp; app settings</div>
+      <div>Platform analytics from live Firebase data</div>
+      <div>Centralized admin dashboard</div>
+      <div>Recording upload &amp; review</div>
+    </div>
+  </div>
+</section>
+
+<section id="live">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Live classes, recorded your way</h2>
+      <p class="desc">Real-time teaching with Agora RTC, plus a recording workflow that doesn't depend on the cloud.</p>
+    </div>
+    <div class="callout">
+      <div>
+        <span class="tag">Local recording</span>
+        <h3>Recording happens on the phone — merge the clips when you're done</h3>
+        <p>Live sessions can be recorded straight to local storage, organized by course, so a session doesn't need to be uploaded live to be captured.</p>
+        <p>If a class gets recorded in parts, multiple local segments from the same session can be merged into a single clean video file — then played back, deleted, or uploaded to Firebase Storage for the course library.</p>
+      </div>
+      <div class="rec-path">Recordings/
+  {courseId}/
+    recording1.mp4
+    recording2.mp4
+    recording3.mp4
+      ↓ merge
+    session-final.mp4</div>
+    </div>
+  </div>
+</section>
+
+<section id="payments">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Payments, verified server-side</h2>
+      <p class="desc">The Razorpay secret key never ships inside the app — every order and payment is checked by a Cloud Function.</p>
+    </div>
+    <div class="flow">
+      <div class="step">Select course</div><div class="arrow">→</div>
+      <div class="step">Firebase Auth session</div><div class="arrow">→</div>
+      <div class="step">Cloud Function creates order</div><div class="arrow">→</div>
+      <div class="step">Razorpay checkout</div><div class="arrow">→</div>
+      <div class="step">Signature verified server-side</div><div class="arrow">→</div>
+      <div class="step">Course access granted</div>
+    </div>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Under the hood</h2>
+      <p class="desc">Kotlin and Jetpack Compose on the client, Firebase and Agora doing the heavy lifting behind it.</p>
+    </div>
+    <div class="media" style="margin-bottom:28px;">
+      <img src="Abm%20Pics/architecture.png" alt="ABM EduX system architecture">
+    </div>
+    <div class="stack-row">
+      <span class="stack-chip">Kotlin</span>
+      <span class="stack-chip">Jetpack Compose</span>
+      <span class="stack-chip">Material 3</span>
+      <span class="stack-chip">Navigation Compose</span>
+      <span class="stack-chip">Coil</span>
+      <span class="stack-chip">AndroidX Media3 / ExoPlayer</span>
+      <span class="stack-chip">WorkManager</span>
+      <span class="stack-chip">Agora RTC SDK</span>
+      <span class="stack-chip">MediaProjection API</span>
+      <span class="stack-chip">Firebase Authentication</span>
+      <span class="stack-chip">Cloud Firestore</span>
+      <span class="stack-chip">Firebase Storage</span>
+      <span class="stack-chip">Cloud Functions</span>
+      <span class="stack-chip">Razorpay</span>
+    </div>
+  </div>
+</section>
+
+<section id="screens">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Inside the app</h2>
+      <p class="desc">A walk through the student and admin experience, screen by screen.</p>
+    </div>
+    <div class="filmstrip">
+      <div class="shot"><div class="media"><img src="Abm%20Pics/p1.jpeg" alt="Screen 1"></div><div class="label">Screen 01</div></div>
+      <div class="shot"><div class="media"><img src="Abm%20Pics/p2.jpeg" alt="Screen 2"></div><div class="label">Screen 02</div></div>
+      <div class="shot"><div class="media"><img src="Abm%20Pics/p3.jpeg" alt="Screen 3"></div><div class="label">Screen 03</div></div>
+      <div class="shot"><div class="media"><img src="Abm%20Pics/p4.jpeg" alt="Screen 4"></div><div class="label">Screen 04</div></div>
+      <div class="shot"><div class="media"><img src="Abm%20Pics/p5.jpeg" alt="Screen 5"></div><div class="label">Screen 05</div></div>
+      <div class="shot"><div class="media"><img src="Abm%20Pics/p6.jpeg" alt="Screen 6"></div><div class="label">Screen 06</div></div>
+      <div class="shot"><div class="media"><img src="Abm%20Pics/p7.jpeg" alt="Screen 7"></div><div class="label">Screen 07</div></div>
+      <div class="shot"><div class="media"><img src="Abm%20Pics/p8.jpeg" alt="Screen 8"></div><div class="label">Screen 08</div></div>
+      <div class="shot"><div class="media"><img src="Abm%20Pics/p9.jpeg" alt="Screen 9"></div><div class="label">Screen 09</div></div>
+      <div class="shot"><div class="media"><img src="Abm%20Pics/p10.jpeg" alt="Screen 10"></div><div class="label">Screen 10</div></div>
+      <div class="shot"><div class="media"><img src="Abm%20Pics/p11.jpeg" alt="Screen 11"></div><div class="label">Screen 11</div></div>
+      <div class="shot"><div class="media"><img src="Abm%20Pics/p12.jpeg" alt="Screen 12"></div><div class="label">Screen 12</div></div>
+      <div class="shot"><div class="media"><img src="Abm%20Pics/p13.jpeg" alt="Screen 13"></div><div class="label">Screen 13</div></div>
+      <div class="shot"><div class="media"><img src="Abm%20Pics/p14.jpeg" alt="Screen 14"></div><div class="label">Screen 14</div></div>
+      <div class="shot"><div class="media"><img src="Abm%20Pics/p15.jpeg" alt="Screen 15"></div><div class="label">Screen 15</div></div>
+      <div class="shot"><div class="media"><img src="Abm%20Pics/p16.jpeg" alt="Screen 16"></div><div class="label">Screen 16</div></div>
+      <div class="shot"><div class="media"><img src="Abm%20Pics/p17.jpeg" alt="Screen 17"></div><div class="label">Screen 17</div></div>
+      <div class="shot"><div class="media"><img src="Abm%20Pics/p18.jpeg" alt="Screen 18"></div><div class="label">Screen 18</div></div>
+      <div class="shot"><div class="media"><img src="Abm%20Pics/p19.jpeg" alt="Screen 19"></div><div class="label">Screen 19</div></div>
+      <div class="shot"><div class="media"><img src="Abm%20Pics/p20.jpeg" alt="Screen 20"></div><div class="label">Screen 20</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="download">
+  <div class="wrap">
+    <div class="download-box">
+      <div>
+        <h2 style="font-size:1.6rem;">Get ABM EduX on Android</h2>
+        <p>Courses, live classes, tests, assignments and payments — all in one app, live now on the Play Store.</p>
+      </div>
+      <a class="play-btn" href="https://play.google.com/store/apps/details?id=com.abhishek8107.abmedux">Get it on Google Play</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div>
+      <div class="dev">Lokesh Kumar</div>
+      <div class="role">Robotics &amp; Automation Engineering · NIT Kurukshetra</div>
+    </div>
+    <div class="note">ABM EduX is an independent learning platform built for students and educators.</div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.tab-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+      document.querySelectorAll('.feature-grid').forEach(function(g){ g.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
